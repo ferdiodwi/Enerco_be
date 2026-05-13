@@ -17,6 +17,9 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->enum('role', ['admin', 'government', 'energy_provider', 'business_owner', 'investor'])->default('business_owner');
+            $table->string('phone')->nullable();
+            $table->enum('status', ['active', 'inactive', 'pending'])->default('active');
             $table->rememberToken();
             $table->timestamps();
         });
