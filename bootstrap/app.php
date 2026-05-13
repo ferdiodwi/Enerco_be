@@ -15,9 +15,6 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'role' => \App\Http\Middleware\CheckRole::class,
         ]);
-
-        // Allow stateful API requests from the React frontend
-        $middleware->statefulApi();
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
