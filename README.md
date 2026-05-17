@@ -1,58 +1,85 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# EnergEco GlobalChain - Backend (API)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Backend repository untuk **EnergEco GlobalChain**, platform distribusi energi bersih yang cerdas dan terintegrasi untuk mendukung UMKM dan kolaborasi lokal. Dibangun menggunakan Laravel.
 
-## About Laravel
+## 🚀 Teknologi yang Digunakan
+* **Framework:** Laravel 13
+* **Bahasa:** PHP 8.3+
+* **Database:** MySQL
+* **Autentikasi:** Laravel Sanctum (API Tokens)
+* **Manajemen Hak Akses:** Spatie Laravel Permission
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 📦 Fitur Utama (Berdasarkan SRS)
+1. **Role-Based Access Control (RBAC):** Mendukung 5 peran (Admin, UMKM, Government, Provider, Partner).
+2. **Manajemen Energi & Kebutuhan:** API untuk entri ketersediaan *clean energy* dan pengajuan kebutuhan.
+3. **AI Recommendation Engine:** API Rekomendasi (*matchmaking*) dengan *Priority Scoring* untuk distribusi energi.
+4. **Data Geospasial (Peta Interaktif):** Endpoint yang menyediakan koordinat titik UMKM dan penyedia energi bersih.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 🛠️ Cara Instalasi & Menjalankan Sistem
 
-## Learning Laravel
+### 1. Persyaratan Sistem
+Pastikan Anda sudah menginstal aplikasi berikut di komputer Anda:
+* PHP >= 8.3
+* Composer
+* MySQL Database (XAMPP / Laragon / MySQL Server)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 2. Langkah-langkah Instalasi
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+**Clone atau Ekstrak Project:**
+Masuk ke direktori `Enerco_be` (repository ini).
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
-
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
-
+**Install Dependencies:**
+Jalankan perintah composer untuk menginstal semua *library* backend:
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+composer install
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+**Konfigurasi Environment (.env):**
+Salin file `.env.example` menjadi `.env`:
+```bash
+cp .env.example .env
+```
+Buka file `.env` dan atur koneksi database Anda (sesuaikan password jika ada):
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=energeco
+DB_USERNAME=root
+DB_PASSWORD=
+```
+*(Catatan: Pastikan Anda telah membuat database kosong bernama `energeco` di phpMyAdmin / database client Anda).*
 
-## Contributing
+**Generate Application Key:**
+```bash
+php artisan key:generate
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+**Jalankan Migrasi & Seeder Database:**
+Perintah ini akan membuat semua struktur tabel dan mengisi data awal (*dummy data*) termasuk Role, Permission, dan akun User.
+```bash
+php artisan migrate --seed
+```
+*(Catatan: Anda bisa melihat daftar akun demo yang dibuat di dalam file `database/seeders/DemoDataSeeder.php`)*.
 
-## Code of Conduct
+**Buat Symlink untuk Storage (Penting untuk Gambar Marketplace):**
+```bash
+php artisan storage:link
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 3. Menjalankan Server API
 
-## Security Vulnerabilities
+Setelah instalasi selesai, jalankan server pengembangan Laravel:
+```bash
+php artisan serve
+```
+Backend API Anda sekarang berjalan di: **`http://127.0.0.1:8000`**
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 4. Menggunakan API (Telescope)
+Untuk memonitor semua *request* API, *query* database, atau melihat pesan *error*, Anda bisa membuka *dashboard* Laravel Telescope di browser:
+👉 **`http://127.0.0.1:8000/telescope`**
 
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+*Dikembangkan untuk solusi kompetisi.*
