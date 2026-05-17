@@ -23,7 +23,7 @@ class MapController extends Controller
         }
 
         $businesses = $bq->select('id','name','sector','latitude','longitude','monthly_energy_need','verification_status')
-            ->with('latestPriorityScore:id,business_id,score,category')->get()
+            ->with('latestPriorityScore:priority_scores.id,priority_scores.business_id,priority_scores.score,priority_scores.category')->get()
             ->map(fn($b) => [
                 'id' => $b->id, 'type' => 'business', 'name' => $b->name,
                 'sector' => $b->sector, 'latitude' => $b->latitude, 'longitude' => $b->longitude,
