@@ -28,6 +28,13 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::get('/products', [ProductController::class, 'index']);
 Route::get('/products/{product}', [ProductController::class, 'show']);
 
+// ---- Public Map (SRS 9.8) ----
+Route::get('/map/markers', [MapController::class, 'markers']);
+Route::get('/map/priority-areas', [MapController::class, 'priorityAreas']);
+
+// ---- Public Stats ----
+Route::get('/dashboard/public-stats', [DashboardController::class, 'publicStats']);
+
 // ---- Protected Routes ----
 Route::middleware('auth:sanctum')->group(function () {
 
@@ -70,10 +77,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::patch('/energy-needs/{energyNeed}/validate', [EnergyNeedController::class, 'validate_need'])
         ->middleware('role:admin');
 
-    // Map (SRS 9.8)
-    Route::get('/map/markers', [MapController::class, 'markers']);
-    Route::get('/map/priority-areas', [MapController::class, 'priorityAreas'])
-        ->middleware('role:admin|government');
+    // // Map (SRS 9.8)
+    // Route::get('/map/markers', [MapController::class, 'markers']);
+    // Route::get('/map/priority-areas', [MapController::class, 'priorityAreas'])
+    //     ->middleware('role:admin|government');
 
     // Recommendations (SRS 9.9)
     Route::get('/recommendations', [RecommendationController::class, 'index']);
